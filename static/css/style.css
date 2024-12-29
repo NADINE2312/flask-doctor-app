@@ -1,0 +1,202 @@
+/* Reset basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Styling the body */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e0f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    overflow: hidden; /* So the icons don't scroll outside the window */
+}
+
+/* Form container */
+.form-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    z-index: 10; /* Bring the form above the icons */
+}
+
+/* Header styling */
+h1 {
+    font-size: 28px;
+    color: #00796b;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 20px;
+    color: #004d40;
+    margin-bottom: 30px;
+}
+
+/* Form group styling */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+label {
+    font-size: 16px;
+    color: #004d40;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="time"],
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+/* Focus effect for input fields */
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+select:focus {
+    border-color: #00796b;
+    outline: none;
+    box-shadow: 0 0 6px rgba(0, 121, 107, 0.2);
+}
+
+/* Role select field */
+select {
+    appearance: none; /* Remove default dropdown appearance */
+    -webkit-appearance: none; /* Remove default dropdown appearance for Safari */
+    -moz-appearance: none; /* Remove default dropdown appearance for Firefox */
+    background-color: #ffffff;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zY2hlbWVzL3htbG5zL3N2ZyIgY2xhc3M9InBpcmtleS1pY29uIj4KPHBhdGggZD0iTTE4IDEuNDExOTMzNzcsMTAuNzA0NzU5OTYsNC42NDkyMzQzNSBMIDggNzk5MDg2MzY0LDEwLjkwMzEwOTg3IFoiIGZpbGw9Im5vbmUiLz4KPC9zdmc+');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px 16px;
+}
+
+/* Button styling */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #00796b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #004d40;
+}
+
+/* Background Icon Styles */
+.icon-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Floating icons */
+.floating-icon {
+    position: absolute;
+    font-size: 50px;
+    color: rgba(0, 121, 107, 0.3);
+    animation: float 20s linear infinite;
+}
+
+/* Adding more brightness and colors to each icon */
+.fas.fa-stethoscope {
+    color: #00796b;
+}
+
+.fas.fa-heartbeat {
+    color: #f44336;
+    animation-duration: 18s;
+}
+
+.fas.fa-user-md {
+    color: #9c27b0;
+    animation-duration: 22s;
+}
+
+.fas.fa-pills {
+    color: #ff9800;
+    animation-duration: 24s;
+}
+
+.fas.fa-syringe {
+    color: #3f51b5;
+    animation-duration: 26s;
+}
+
+.fas.fa-ambulance {
+    color: #e91e63;
+    animation-duration: 28s;
+}
+
+/* Animating floating icons */
+@keyframes float {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(20vh) translateX(30vw) rotate(180deg);
+    }
+    100% {
+        transform: translateY(-10vh) translateX(-20vw) rotate(360deg);
+    }
+}
+
+/* Positioning the floating icons at random places */
+.fas.fa-stethoscope {
+    top: 10%;
+    left: 10%;
+}
+
+.fas.fa-heartbeat {
+    top: 30%;
+    left: 70%;
+}
+
+.fas.fa-user-md {
+    top: 60%;
+    left: 30%;
+}
+
+.fas.fa-pills {
+    top: 20%;
+    left: 80%;
+}
+
+.fas.fa-syringe {
+    top: 50%;
+    left: 40%;
+}
+
+.fas.fa-ambulance {
+    top: 80%;
+    left: 10%;
+}

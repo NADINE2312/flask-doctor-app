@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Dashboard Header -->
+        <h1><i class="fas fa-user-injured"></i> Patient Dashboard</h1>
+        
+        <!-- Available Doctors Section -->
+        <h2><i class="fas fa-user-md"></i> Available Doctors</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Specialization</th>
+                    <th>Availability</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doctor in doctors %}
+                <tr>
+                    <td>{{ doctor.name }}</td>
+                    <td>{{ doctor.specialization }}</td>
+                    <td>
+                        <span class="badge {{ 'bg-success' if doctor.availability else 'bg-danger' }}">
+                            {{ 'Available' if doctor.availability else 'Not Available' }}
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="confirmed-appointments-section">
+            <h2>Your Confirmed Appointments</h2>
+            {% if confirmed_appointments %}
+            <table class="confirmed-appointments-table">
+                <thead>
+                    <tr>
+                        <th>Doctor</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in confirmed_appointments %}
+                    <tr>
+                        <td>{{ appointment.doctor_name }}</td>
+                        <td>{{ appointment.date }}</td>
+                        <td>{{ appointment.time }}</td>
+                        <td>{{ appointment.status }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="confirmed-appointments-message">
+                <p>You have no confirmed appointments.</p>
+            </div>
+            {% endif %}
+        </div>
+        
+
+
+        <!-- Book Appointment Section -->
+        <h2><i class="fas fa-calendar-alt"></i> Book Appointment</h2>
+        <form method="POST" action="/book-appointment">
+            <div>
+                <label for="doctor" class="form-label">Select Doctor</label>
+                <select id="doctor" name="doctor_id" class="form-select" required>
+                    {% for doctor in doctors if doctor.availability %}
+                    <option value="{{ doctor.id }}">{{ doctor.name }} ({{ doctor.specialization }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="date" class="form-label">Appointment Date</label>
+                <input type="date" id="date" name="date" class="form-control" required>
+            </div>
+            <div>
+                <label for="time" class="form-label">Appointment Time</label>
+                <input type="time" id="time" name="time" class="form-control" required>
+            </div>
+            <button type="submit" class="btn">
+                <i class="fas fa-check-circle"></i> Book Appointment
+            </button>
+        </form>
+        <form method="POST" action="/logout" class="logout-form">
+            <button type="submit" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </form>
+    </div>
+</body>
+</html>

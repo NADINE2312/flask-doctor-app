@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <h1><i class="fas fa-stethoscope"></i> Doctor Dashboard</h1>
+
+
+        <!-- Appointments Section -->
+        <h2><i class="fas fa-calendar-check"></i> Your Appointments</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                    <th>Upload & Analyze Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.patient_name }}</td>
+                    <td>{{ appointment.date }}</td>
+                    <td>{{ appointment.time }}</td>
+                    <td>
+                        <span class="badge {{ 'bg-warning' if appointment.status == 'pending' else 'bg-success' }}">
+                            {{ appointment.status | capitalize }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if appointment.status == 'pending' %}
+                        <form method="POST" action="/confirm-appointment" class="action-form">
+                            <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                            <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-check-circle"></i> Confirm</button>
+                        </form>
+                        <form method="POST" action="/cancel-appointment" class="action-form">
+                            <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-times-circle"></i> Cancel</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <!-- Image Upload and Classification -->
+                        <form id="uploadForm-{{ appointment.id }}" enctype="multipart/form-data">
+                            <input type="file" id="fileInput-{{ appointment.id }}" accept="image/*" required />
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-upload"></i> Analyze</button>
+                        </form>
+                        <div id="result-{{ appointment.id }}" class="analysis-result"></div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Update Details Section -->
+        <h2><i class="fas fa-user-edit"></i> Update Your Details</h2>
+        <form method="POST" action="/update-doctor-details">
+            <div>
+                <label for="specialization" class="form-label">Specialization</label>
+                <input type="text" id="specialization" name="specialization" value="{{ doctor.specialization }}" class="form-control">
+            </div>
+            <div>
+                <label for="availability" class="form-label">Availability</label>
+                <select id="availability" name="availability" class="form-select">
+                    <option value="1" {% if doctor.availability %}selected{% endif %}>Available</option>
+                    <option value="0" {% if not doctor.availability %}selected{% endif %}>Not Available</option>
+                </select>
+            </div>
+            <button type="submit" class="btn"><i class="fas fa-save"></i> Update</button>
+        </form>
+        <form method="POST" action="/logout" class="logout-form">
+            <button type="submit" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </form>
+    </div>
+    <script>
+        // Add event listeners for all analyze forms
+        document.querySelectorAll('form[id^="uploadForm-"]').forEach((form) => {
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault(); // Prevent the default form submission
+    
+                const formId = form.id.split('-')[1]; // Extract appointment ID from form ID
+                const fileInput = document.getElementById(`fileInput-${formId}`);
+                const resultDiv = document.getElementById(`result-${formId}`);
+    
+                // Get the uploaded file
+                const file = fileInput.files[0];
+    
+                if (!file) {
+                    resultDiv.innerText = "Please select an image.";
+                    return;
+                }
+    
+                if (!file.type.startsWith("image/")) {
+                    resultDiv.innerText = "Please select a valid image file (e.g., .png, .jpg).";
+                    return;
+                }
+    
+                const formData = new FormData();
+                formData.append("file", file);
+    
+                // Show loading feedback
+                resultDiv.innerHTML = `<p>Processing your image...</p>`;
+    
+                try {
+                    // Send the image to the backend API
+                    const response = await fetch("http://127.0.0.1:5000/predict", {
+                        method: "POST",
+                        body: formData,
+                    });
+    
+                    if (!response.ok) {
+                        resultDiv.innerText = `Error: Server responded with status ${response.status}`;
+                        return;
+                    }
+    
+                    const data = await response.json();
+    
+                    // Display the result
+                    if (data.error) {
+                        resultDiv.innerText = `Error: ${data.error}`;
+                    } else {
+                        resultDiv.innerHTML = ` 
+                            <p>Predicted Class: ${data.predicted_class}</p> 
+                            <p>Confidence: ${(data.confidence * 100).toFixed(2)}%</p>
+                        `;
+                    }
+                } catch (error) {
+                    resultDiv.innerText = `Error: ${error.message}`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

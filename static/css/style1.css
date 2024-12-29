@@ -1,0 +1,201 @@
+/* General Body Styling */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: linear-gradient(to bottom, #f7f9fc, #e3f2fd);
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container */
+.container {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 800px;
+    width: 90%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center-align content */
+}
+
+/* Header Title */
+h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #a8dadc;
+}
+
+/* Section Titles */
+h2 {
+    margin-top: 30px;
+    font-size: 22px;
+    color: #1d3557;
+    text-align: center; /* Center the section titles */
+    border-left: none;
+    padding: 10px 0;
+    font-weight: bold;
+}
+
+/* Table Styling */
+.table {
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.table th {
+    background: #a8dadc;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+}
+
+.table td {
+    text-align: center;
+    padding: 10px;
+    background: #f7f9fc;
+}
+
+.table tr:hover {
+    background: #f1f8fe;
+}
+
+/* Form Styling */
+form {
+    margin-top: 30px;
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Align form fields left for readability */
+}
+
+/* Confirmed Appointments Section - Themed */
+.confirmed-appointments-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff; /* Matches container background */
+    border-radius: 15px; /* Matches other sections' borders */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Consistent shadow */
+}
+
+/* Section Title */
+.confirmed-appointments-section h2 {
+    margin-bottom: 20px;
+    font-size: 22px; /* Matches other section titles */
+    font-weight: bold;
+    color: #1d3557; /* Consistent title color */
+    text-align: center;
+    border-bottom: 2px solid #a8dadc; /* Matching separator style */
+    padding-bottom: 10px;
+}
+
+/* Table Styling */
+.confirmed-appointments-table {
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Matches general table shadow */
+    width: 100%;
+}
+
+.confirmed-appointments-table th {
+    background: #a8dadc; /* Matches table header style */
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+}
+
+.confirmed-appointments-table td {
+    text-align: center;
+    padding: 10px;
+    background: #f7f9fc; /* Matches table body style */
+    border-bottom: 1px solid #ddd; /* Add subtle dividers */
+}
+
+.confirmed-appointments-table tr:hover {
+    background: #f1f8fe; /* Consistent hover effect */
+}
+
+/* Empty State Message */
+.confirmed-appointments-message {
+    font-size: 1.1rem;
+    color: #555;
+    text-align: center;
+    padding: 15px;
+    margin-top: 10px;
+    border: 1px dashed #a8dadc; /* Matches themed border color */
+    background-color: #f7f9fc; /* Matches table row background */
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+
+form .form-label {
+    font-weight: bold;
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+form .form-control, form .form-select {
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #ccd6e6;
+    background: #ffffff;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px; /* Add spacing between fields */
+}
+
+form .btn {
+    font-size: 16px;
+    font-weight: bold;
+    background: #457b9d;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    transition: all 0.3s ease-in-out;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto; /* Center-align the button */
+}
+
+form .btn:hover {
+    background: #1d3557;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Adjusting Div Spacing */
+form div, .table, h2 {
+    margin-bottom: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 22px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    .btn {
+        font-size: 14px;
+    }
+}
